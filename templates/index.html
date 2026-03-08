@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAG Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div class="headline">
+        <p class="eyebrow">Knowledge Workspace</p>
+        <h1>Production RAG Assistant</h1>
+        <p>Grounded responses with citations, memory controls, and live index health.</p>
+      </div>
+      <div class="actions">
+        <button id="reindexBtn">Reindex Docs</button>
+        <button id="resetBtn" class="secondary">Reset Memory</button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>System Health</h2>
+          <div class="health-grid">
+            <span class="chip"><strong>Status</strong><span id="healthStatus">Checking...</span></span>
+            <span class="chip"><strong>Mode</strong><span id="healthMode">-</span></span>
+            <span class="chip"><strong>Indexed</strong><span id="healthChunks">0 chunks</span></span>
+          </div>
+        </section>
+
+        <section class="panel" aria-label="Example prompts">
+          <h2>Quick Prompts</h2>
+          <div class="quick-prompts">
+            <button class="prompt-chip" data-prompt="How do I reset my password?">Reset password</button>
+            <button class="prompt-chip" data-prompt="How do I enable two-factor authentication?">Enable 2FA</button>
+            <button class="prompt-chip" data-prompt="How can I cancel my subscription?">Cancel subscription</button>
+            <button class="prompt-chip" data-prompt="Where can I download invoices?">Download invoices</button>
+            <button class="prompt-chip" data-prompt="How does seat-based billing work?">Seat billing</button>
+            <button class="prompt-chip" data-prompt="What happens if a payment fails?">Payment failure</button>
+            <button class="prompt-chip" data-prompt="How do I invite team members?">Invite members</button>
+            <button class="prompt-chip" data-prompt="What are workspace roles and permissions?">Roles and permissions</button>
+            <button class="prompt-chip" data-prompt="How do I set up SSO?">SSO setup</button>
+            <button class="prompt-chip" data-prompt="What are API rate limits and 429 errors?">API rate limits</button>
+            <button class="prompt-chip" data-prompt="How do webhook retries work?">Webhook retries</button>
+            <button class="prompt-chip" data-prompt="How do I export my account data?">Export data</button>
+            <button class="prompt-chip" data-prompt="How do I delete my account?">Delete account</button>
+            <button class="prompt-chip" data-prompt="When should I reindex documents?">When to reindex</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="chat-shell">
+        <section id="messages" class="messages" aria-live="polite"></section>
+
+        <form id="chatForm" class="composer">
+          <input id="messageInput" type="text" placeholder="Ask from the knowledge base..." autocomplete="off" />
+          <button type="submit" class="icon-send" aria-label="Send message" title="Send">
+            <span aria-hidden="true">&#10148;</span>
+            <span class="sr-only">Send</span>
+          </button>
+        </form>
+
+        <footer id="status" class="status">Ready.</footer>
+      </section>
+    </div>
+  </main>
+  <script src="/static/script.js"></script>
+</body>
+</html>

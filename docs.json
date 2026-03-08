@@ -1,0 +1,146 @@
+[
+  {
+    "id": "kb_1",
+    "title": "Account Sign Up Requirements",
+    "source": "Help Center > Onboarding",
+    "content": "To create an account, users must provide full name, a valid email address, and a password with at least 8 characters including at least one number. The email verification link expires after 24 hours. If the link expires, users can request a new verification email from the login screen."
+  },
+  {
+    "id": "kb_2",
+    "title": "Password Reset and OTP",
+    "source": "Help Center > Security",
+    "content": "Users can reset their password from Settings > Security > Reset Password or from the Forgot Password option on the login page. A one-time code is sent to the registered email. The reset token is valid for 10 minutes. If no code arrives, users should check spam/junk folders and can request a resend after 60 seconds."
+  },
+  {
+    "id": "kb_3",
+    "title": "Two-Factor Authentication (2FA)",
+    "source": "Help Center > Security",
+    "content": "2FA can be enabled from Settings > Security > Two-Factor Authentication. Supported methods are authenticator app and email OTP. When 2FA is enabled, users must enter the second factor at login. Backup recovery codes are shown once during setup and should be stored securely."
+  },
+  {
+    "id": "kb_4",
+    "title": "Session and Device Management",
+    "source": "Help Center > Security",
+    "content": "Users can view active sessions in Settings > Security > Devices. The list includes device name, approximate location, and last active timestamp. Selecting Sign Out removes that device session immediately. Changing the password signs out all other active sessions."
+  },
+  {
+    "id": "kb_5",
+    "title": "Plan Types and Billing Cycles",
+    "source": "Help Center > Billing",
+    "content": "Plans are available as monthly or annual subscriptions. Monthly plans renew every 30 days based on the billing date. Annual plans renew every 12 months and include discounted pricing compared to monthly billing. All charges are processed automatically using the saved payment method."
+  },
+  {
+    "id": "kb_6",
+    "title": "Upgrade and Downgrade Rules",
+    "source": "Help Center > Billing",
+    "content": "Upgrades take effect immediately and prorated charges are applied for the remainder of the current billing cycle. Downgrades are scheduled for the next billing cycle to avoid immediate feature loss. Users retain current plan benefits until the downgrade effective date."
+  },
+  {
+    "id": "kb_7",
+    "title": "Cancellation and Access Expiry",
+    "source": "Help Center > Billing",
+    "content": "Users can cancel at any time from Settings > Billing > Manage Plan. Cancellation stops auto-renewal. Access continues until the end of the already paid billing period. No further recurring charges are made after cancellation unless the user reactivates the subscription."
+  },
+  {
+    "id": "kb_8",
+    "title": "Refund Policy",
+    "source": "Help Center > Billing",
+    "content": "Refund requests are reviewed within 5 business days. Eligibility depends on usage, purchase date, and applicable regional consumer laws. If approved, refunds are returned to the original payment method. Processing time after approval usually takes 5 to 10 business days depending on the bank or card issuer."
+  },
+  {
+    "id": "kb_9",
+    "title": "Invoice Download and Tax Details",
+    "source": "Help Center > Billing",
+    "content": "Invoices can be downloaded from Settings > Billing > Invoices. Each invoice includes subscription plan, billing period, currency, and tax line items where applicable. To update tax information, users can edit billing details before the next invoice is generated."
+  },
+  {
+    "id": "kb_10",
+    "title": "Data Export",
+    "source": "Help Center > Privacy",
+    "content": "Users can request a copy of their account data from Settings > Privacy > Export Data. Export requests are processed asynchronously and a secure download link is sent by email when ready. For security reasons, the download link expires after 24 hours."
+  },
+  {
+    "id": "kb_11",
+    "title": "Account Deletion",
+    "source": "Help Center > Privacy",
+    "content": "Account deletion is available under Settings > Privacy > Delete Account. Deletion is permanent after a short grace period and removes profile data, saved settings, and associated workspace access. Some transaction records may be retained for legal, tax, and fraud-prevention obligations."
+  },
+  {
+    "id": "kb_12",
+    "title": "API Access and Rate Limits",
+    "source": "Help Center > Developer",
+    "content": "API access is available on eligible paid plans. Requests must include a valid API key in the Authorization header. Standard rate limits apply per workspace and may vary by endpoint. If clients exceed limits, the API returns a 429 response and callers should retry with exponential backoff."
+  },
+  {
+    "id": "kb_13",
+    "title": "API Authentication Errors",
+    "source": "Help Center > Developer",
+    "content": "A 401 response usually means the API key is missing, invalid, or revoked. Verify that the Authorization header uses the expected bearer token format and that the key belongs to the correct workspace. After rotating keys, update all server environments and restart running services to avoid stale credentials."
+  },
+  {
+    "id": "kb_14",
+    "title": "Webhook Retry and Signature Verification",
+    "source": "Help Center > Developer",
+    "content": "Webhook receivers should verify request signatures before processing payloads. If your endpoint returns a non-2xx response or times out, delivery is retried automatically with exponential backoff. For reliability, acknowledge quickly and process events asynchronously."
+  },
+  {
+    "id": "kb_15",
+    "title": "Workspace Roles and Permissions",
+    "source": "Help Center > Workspace",
+    "content": "Common roles are Owner, Admin, Member, and Viewer. Owners can manage billing and critical workspace settings. Admins can manage users and most configuration. Members can use product features based on plan limits, while Viewers have read-only access where supported."
+  },
+  {
+    "id": "kb_16",
+    "title": "Inviting Team Members",
+    "source": "Help Center > Workspace",
+    "content": "Team invitations are sent from Settings > Workspace > Members. Invitees receive an email with an acceptance link that expires after 7 days. If the invite expires, admins can resend it. Pending invites do not count as active seats until accepted."
+  },
+  {
+    "id": "kb_17",
+    "title": "Seat-Based Billing",
+    "source": "Help Center > Billing",
+    "content": "On seat-based plans, charges depend on active member count. Adding seats mid-cycle may create prorated charges. Removing users reduces future renewal costs but does not always generate immediate credits for the current cycle unless plan terms specify otherwise."
+  },
+  {
+    "id": "kb_18",
+    "title": "Payment Failure Handling",
+    "source": "Help Center > Billing",
+    "content": "If renewal payment fails, the platform retries automatically and notifies billing contacts by email. During the grace period, users may retain access with restricted billing actions. If payment remains unresolved after retries, the subscription can move to a suspended state until a valid payment method is added."
+  },
+  {
+    "id": "kb_19",
+    "title": "Notification Preferences",
+    "source": "Help Center > Account",
+    "content": "Users can configure product, security, and billing notifications from Settings > Notifications. Critical security alerts cannot be fully disabled. Marketing messages can be opted out from preferences or email unsubscribe links."
+  },
+  {
+    "id": "kb_20",
+    "title": "Single Sign-On (SSO) Setup",
+    "source": "Help Center > Security",
+    "content": "SSO setup requires IdP metadata and verified domain ownership. Admins can configure SAML settings under Security > SSO and test with a pilot group before enforcing login for all users. Keep at least one recovery admin account to prevent lockouts during rollout."
+  },
+  {
+    "id": "kb_21",
+    "title": "Data Retention Windows",
+    "source": "Help Center > Privacy",
+    "content": "Operational logs are retained for a limited period to support security and troubleshooting. User-generated content retention depends on workspace settings and plan capabilities. Deleted content may remain in backups for a short period before permanent purge."
+  },
+  {
+    "id": "kb_22",
+    "title": "Supported File Upload Limits",
+    "source": "Help Center > Product",
+    "content": "File uploads support common formats such as PDF, TXT, DOCX, and CSV. Maximum file size and per-workspace storage limits depend on the active plan. Unsupported or encrypted files may fail processing and should be converted to a supported format before retrying."
+  },
+  {
+    "id": "kb_23",
+    "title": "Search and Index Refresh Behavior",
+    "source": "Help Center > Product",
+    "content": "After documents are updated, reindexing is required for retrieval to include new content. During reindex operations, old results may appear until the new index is fully written. For best accuracy, trigger reindex after major KB edits and verify index health from the status endpoint."
+  },
+  {
+    "id": "kb_24",
+    "title": "Support Ticket Escalation",
+    "source": "Help Center > Support",
+    "content": "Users can open support tickets with issue summary, reproduction steps, and timestamps. High-impact incidents should include workspace ID and affected region for faster triage. Escalations are prioritized by severity, business impact, and reproducibility."
+  }
+]

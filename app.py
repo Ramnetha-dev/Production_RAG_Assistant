@@ -155,23 +155,29 @@ def build_chunks(docs: List[dict]) -> List[Chunk]:
 
 
 def embed_texts(texts: List[str]) -> List[List[float]]:
+    def _local_embed(batch: List[str]) -> List[List[float]]:
+        vectors: List[List[float]] = []
+        for text in batch:
+            vec = np.zeros(LOCAL_EMBED_DIM, dtype=np.float32)
+            tokens = re.findall(r"\w+", text.lower())
+            for token in tokens:
+                idx = hash(token) % LOCAL_EMBED_DIM
+                vec[idx] += 1.0
+            norm = np.linalg.norm(vec)
+            if norm > 0:
+                vec = vec / norm
+            vectors.append(vec.tolist())
+        return vectors
+
     if client is not None:
-        response = client.embeddings.create(model=EMBED_MODEL, input=texts)
-        return [item.embedding for item in response.data]
+        try:
+            response = client.embeddings.create(model=EMBED_MODEL, input=texts)
+            return [item.embedding for item in response.data]
+        except Exception:
+            return _local_embed(texts)
 
     # Offline fallback: deterministic token-hash embeddings for local retrieval.
-    vectors: List[List[float]] = []
-    for text in texts:
-        vec = np.zeros(LOCAL_EMBED_DIM, dtype=np.float32)
-        tokens = re.findall(r"\w+", text.lower())
-        for token in tokens:
-            idx = hash(token) % LOCAL_EMBED_DIM
-            vec[idx] += 1.0
-        norm = np.linalg.norm(vec)
-        if norm > 0:
-            vec = vec / norm
-        vectors.append(vec.tolist())
-    return vectors
+    return _local_embed(texts)
 
 
 def clear_index() -> None:
@@ -327,13 +333,25 @@ def generate_answer(session_id: str, user_message: str, contexts: List[Dict[str,
         )
         return answer
 
-    messages = build_messages(session_id, user_message, contexts)
-    completion = client.chat.completions.create(
-        model=CHAT_MODEL,
-        messages=messages,
-        temperature=0.1,
-    )
-    answer = completion.choices[0].message.content or "I do not know based on current documents."
+    try:
+        messages = build_messages(session_id, user_message, contexts)
+        completion = client.chat.completions.create(
+            model=CHAT_MODEL,
+            messages=messages,
+            temperature=0.1,
+        )
+        answer = completion.choices[0].message.content or "I do not know based on current documents."
+    except Exception:
+        if not contexts:
+            titles = [doc.get("title", "") for doc in read_documents()]
+            title_hint = ", ".join([t for t in titles if t][:5])
+            answer = (
+                "OpenAI is unavailable right now; using document-only fallback. "
+                f"Try topics like: {title_hint}."
+            )
+        else:
+            snippets = [f"[{i+1}] {c['content']}" for i, c in enumerate(contexts[:2])]
+            answer = "OpenAI is unavailable right now, returning top retrieved context:\n\n" + "\n\n".join(snippets)
     memory.setdefault(session_id, []).extend(
         [{"role": "user", "content": user_message}, {"role": "assistant", "content": answer}]
     )
@@ -417,6 +435,14 @@ def ensure_index_ready() -> None:
         count = conn.execute("SELECT COUNT(*) AS c FROM chunks").fetchone()["c"]
     if count == 0:
         index_documents()
+
+
+def bootstrap_app() -> None:
+    # Needed for WSGI servers (e.g., gunicorn on Render), where __main__ is not executed.
+    init_db()
+
+
+bootstrap_app()
 
 
 if __name__ == "__main__":
